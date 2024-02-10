@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 import argparse
+import enum
+
 import polib
 import requests
 import tqdm
-import enum
+
 
 def translate_text_itzuli_eus(text: str) -> str:
     """itzuli.eus webgunea erabiliz testu bat ingelesetik euskarara itzuli"""
@@ -87,7 +89,7 @@ def translate_text_batua_eus(text:str) -> str:
     return ""
 
 
-class Itzultzailea(enum.Enum):
+class Translator(enum.Enum):
     """ Itzultzaile posibleak gordetzeko Enum objektua"""
     elia = 'elia'
     itzuli = 'itzuli'
@@ -113,12 +115,12 @@ ALL_TRANSLATION_FUNCTIONS = {
 }
 
 
-def main(filepath:str, itzultzailea: Itzultzailea) -> None:
+def main(filepath:str, translator: Translator) -> None:
     """ Open the PO file and get all msgids in order to translate them
     """
     pofile = polib.pofile(filepath)
 
-    translation_function = ALL_TRANSLATION_FUNCTIONS.get(itzultzailea)
+    translation_function = ALL_TRANSLATION_FUNCTIONS.get(translator)
 
     new_contents = []
     name = translation_function.get('name')
@@ -168,8 +170,8 @@ if __name__ == "__main__":
     parser.add_argument(
         'itzultzailea',
         help='Aukeratu zein itzultzaile erabili',
-        type=Itzultzailea,
-        choices=(Itzultzailea.batua, Itzultzailea.elia, Itzultzailea.itzuli)
+        type=Translator,
+        choices=(Translator.batua, Translator.elia, Translator.itzuli)
     )
     args = parser.parse_args()
 
