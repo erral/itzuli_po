@@ -100,15 +100,15 @@ class Translator(enum.Enum):
 
 
 ALL_TRANSLATION_FUNCTIONS = {
-    Itzultzailea.batua: {
+    Translator.batua: {
         "name": "batua.eus",
         "action": translate_text_batua_eus,
     },
-    Itzultzailea.elia: {
+    Translator.elia: {
         "name": "elia.eus",
         "action": translate_text_elia_eus,
     },
-    Itzultzailea.itzuli:{
+    Translator.itzuli:{
         "name": "itzuli.eus",
         "action": translate_text_itzuli_eus,
     },
